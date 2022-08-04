@@ -139,4 +139,18 @@ public class ArticleServiceTest {
         long diffSeconds = ChronoUnit.SECONDS.between(articleDto.getModifiedDate(), LocalDateTime.now());
         assertThat(diffSeconds).isLessThanOrEqualTo(1L);
     }
+
+    @Test
+    public void delete() {
+        //Ut.sleep(5000);
+
+        ArticleService articleService = Container.getObj(ArticleService.class);
+
+        long beforeDelete = articleService.getArticlesCount();
+        articleService.delete(1);
+
+        long afterDelete = articleService.getArticlesCount();
+
+        assertThat(beforeDelete-1).isEqualTo(afterDelete);
+    }
 }

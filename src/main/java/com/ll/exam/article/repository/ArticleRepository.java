@@ -30,4 +30,12 @@ public class ArticleRepository {
                 .append("Where id = %d".formatted(id));
         return sql.selectRow(ArticleDto.class);
     }
+
+    public long getArticlesCount() {
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("SELECT count(*)")
+                .append("FROM article");
+        return sql.selectLong();
+    }
 }

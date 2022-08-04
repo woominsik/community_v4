@@ -29,19 +29,22 @@ public class ArticleService {
     }
 
     public void modify(long id, String title, String body, boolean isBlind) {
-        articleRepository.modify(id,title,body,isBlind);
+        articleRepository.modify(id, title, body, isBlind);
     }
 
     public void delete(long id) {
         articleRepository.delete(id);
     }
 
-    public ArticleDto getNextArticle(long id) {
-        return articleRepository.getArticleById(id+1);
+    public ArticleDto getPrevArticle(ArticleDto articleDto) {
+        return getPrevArticle(articleDto.getId());
     }
 
-    public ArticleDto getPrevArticle(ArticleDto articleDto) {
-        long id = articleDto.getId();
+    public ArticleDto getPrevArticle(long id) {
         return articleRepository.getPrevArticle(id);
+    }
+
+    public ArticleDto getNextArticle(long id) {
+        return articleRepository.getNextArticle(id);
     }
 }

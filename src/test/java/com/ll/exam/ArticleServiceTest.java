@@ -141,4 +141,19 @@ public class ArticleServiceTest {
 
         assertThat(articleDto).isNull();
     }
+    @Test
+    public void 다음글_가져오기(){
+        long tempId = 2;
+        ArticleDto articleDto =articleService.getNextArticle(tempId);
+
+        assertThat(tempId+1).isEqualTo(articleDto.getId());
+    }
+
+    @Test
+    public void 이전글_가져오기(){
+        long tempId = 2;
+        ArticleDto articleDto =articleService.getPrevArticle(tempId);
+
+        assertThat(tempId-1).isEqualTo(articleDto.getId());
+    }
 }

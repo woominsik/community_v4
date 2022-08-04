@@ -32,7 +32,15 @@ public class ArticleService {
         articleRepository.modify(id,title,body,isBlind);
     }
 
-    public void delete(long i) {
-        articleRepository.delete(i);
+    public void delete(long id) {
+        articleRepository.delete(id);
+    }
+
+    public ArticleDto getNextArticle(long id) {
+        return articleRepository.getArticleById(id+1);
+    }
+
+    public ArticleDto getPrevArticle(long id) {
+        return articleRepository.getArticleById(id-1);
     }
 }

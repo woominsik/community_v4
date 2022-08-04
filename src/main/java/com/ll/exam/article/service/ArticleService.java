@@ -40,7 +40,8 @@ public class ArticleService {
         return articleRepository.getArticleById(id+1);
     }
 
-    public ArticleDto getPrevArticle(long id) {
-        return articleRepository.getArticleById(id-1);
+    public ArticleDto getPrevArticle(ArticleDto articleDto) {
+        long id = articleDto.getId();
+        return articleRepository.getPrevArticle(id);
     }
 }

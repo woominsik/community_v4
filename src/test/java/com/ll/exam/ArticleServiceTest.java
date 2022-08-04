@@ -150,10 +150,18 @@ public class ArticleServiceTest {
     }
 
     @Test
-    public void 이전글_가져오기(){
-        long tempId = 2;
-        ArticleDto articleDto =articleService.getPrevArticle(tempId);
+    public void _2번글의_이전글은_1번글_이다() {
+        ArticleDto id2ArticleDto = articleService.getArticleById(2);
+        ArticleDto id1ArticleDto = articleService.getPrevArticle(id2ArticleDto);
 
-        assertThat(tempId-1).isEqualTo(articleDto.getId());
+        assertThat(id1ArticleDto.getId()).isEqualTo(1);
+    }
+
+    @Test
+    public void _1번글의_이전글은_없다() {
+        ArticleDto id1ArticleDto = articleService.getArticleById(1);
+        ArticleDto nullArticleDto = articleService.getPrevArticle(id1ArticleDto);
+
+        assertThat(nullArticleDto).isNull();
     }
 }

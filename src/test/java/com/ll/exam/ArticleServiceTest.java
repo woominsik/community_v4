@@ -24,4 +24,15 @@ public class ArticleServiceTest{
 
         assertThat(articleDtoList.size()).isEqualTo(3);
     }
+
+    @Test
+    public void getArticleById(){
+        ArticleService articleService = Container.getObj(ArticleService.class);
+
+        ArticleDto articleDto = articleService.getArticleById(1);
+
+        assertThat(articleDto.getId()).isEqualTo(1);
+    }
+
+
 }

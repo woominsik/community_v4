@@ -27,14 +27,14 @@ public class ArticleRepository {
         sql
                 .append("SELECT *")
                 .append("FROM article")
-                .append("Where id = %d".formatted(id));
+                .append("WHERE id = ?", id);
         return sql.selectRow(ArticleDto.class);
     }
 
     public long getArticlesCount() {
         SecSql sql = myMap.genSecSql();
         sql
-                .append("SELECT count(*)")
+                .append("SELECT COUNT(*)")
                 .append("FROM article");
         return sql.selectLong();
     }
@@ -67,15 +67,11 @@ public class ArticleRepository {
 
     public void delete(long id) {
         SecSql sql = myMap.genSecSql();
-
-        // id가 0, 1, 3인 글 삭제
-        // id가 0인 글은 없으니, 실제로는 2개의 글이 삭제됨
         sql
-                .append("DELETE")
-                .append("FROM article")
+                .append("DELETE FROM article")
                 .append("WHERE id = ?", id);
 
-        sql.delete();
+        sql.update();
     }
 
     public ArticleDto getPrevArticle(long id) {
@@ -84,6 +80,7 @@ public class ArticleRepository {
                 .append("SELECT *")
                 .append("FROM article")
                 .append("WHERE id < ?", id)
+                .append("AND isBlind = 0")
                 .append("ORDER BY id DESC")
                 .append("LIMIT 1");
         return sql.selectRow(ArticleDto.class);
@@ -95,6 +92,7 @@ public class ArticleRepository {
                 .append("SELECT *")
                 .append("FROM article")
                 .append("WHERE id > ?", id)
+                .append("AND isBlind = 0")
                 .append("ORDER BY id ASC")
                 .append("LIMIT 1");
         return sql.selectRow(ArticleDto.class);
